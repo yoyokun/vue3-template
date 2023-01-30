@@ -3,8 +3,8 @@
   <div class="home">
     <div>{{ testObj.name }}</div>
     <div v-for="item in desserts">{{ item.name }}</div>
-    <span @click="clickEvent">{{ msg }}</span>
-    <v-icon icon="mdi-antenna" color="light-blue"></v-icon>
+    <div @click="clickEvent">{{ msg }}<v-icon icon="mdi-antenna" color="light-blue"></v-icon></div>
+    <div>{{ msgComputed }}</div>
     <test :msg="msg" />
   </div>
 </template>
@@ -22,6 +22,22 @@ const testObj = reactive({
   name: 'test'
 })
 const msg = ref<string | number>('old message')
+// provide
+provide('testObj', readonly(testObj))
+// computed
+const msgComputed = computed({
+  get() {
+    return msg.value + ' computed'
+  },
+  set(val: number | string) {
+    msg.value = val
+  }
+})
+// msgComputed.value = '====='
+// console.log(msgComputed)
+const stopWatch = watchEffect(() => {
+  console.log('watchEffect=>', msg.value)
+})
 
 // 生命周期
 console.log('created')
@@ -48,5 +64,6 @@ onUnmounted(() => {
 const clickEvent = (e: object) => {
   console.log(e)
   msg.value = 'new message'
+  stopWatch()
 }
 </script>

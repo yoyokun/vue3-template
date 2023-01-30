@@ -3,8 +3,19 @@
 </template>
 
 <script setup lang="ts">
+// props
 const props = defineProps({
-  msg: { type: String, default: '' },
+  msg: { type: [String, Number], default: '' },
+})
+// inject
+const testObj = inject('testObj', '')
+console.log(testObj)
+// watch
+watch([() => props.msg, () => testObj], (newValue, oldValue) => {
+  console.log(newValue, oldValue)
+}, { deep: true, immediate: true })
+onUpdated(() => {
+  console.log(props.msg)
 })
 </script>
 
