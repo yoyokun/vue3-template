@@ -21,6 +21,7 @@ import { ComponentInternalInstance } from 'vue';
 
 // api
 import { getAnimal } from '@/api/demo';
+
 getAnimal({}).then((res: any) => {
   console.log(res);
 });
@@ -107,6 +108,9 @@ onUnmounted(() => {
 const clickEvent = (e: object) => {
   console.log('click methods=>节流防抖', e)
   msg.value = 'new message'
+  nextTick(() => {
+    // 访问更新后的 DOM
+  })
   stopWatch()
 }
 
