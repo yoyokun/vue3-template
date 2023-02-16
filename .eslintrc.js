@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 const path = require('path')
 const fs = require('fs')
+const AutoImportESLintGlobals = require('unplugin-auto-import/eslint')
 
 function parseAutoImportsDts(contents) {
     const matchResults = contents.matchAll(/^\s+const (\w+): typeof import/gm)
